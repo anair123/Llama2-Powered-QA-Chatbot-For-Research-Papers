@@ -61,7 +61,7 @@ chain = RetrievalQA.from_chain_type(llm=llm,
 
 
 # input query here
-query = "What are the main challenges that come with handling prompt injections?"
+query = "What are the components of HOUYI?"
 
 
 # response elements
