@@ -1,11 +1,10 @@
 import arxiv
 
-paper_id = '2307.09288'
+paper_id = '2306.05499'
+
 
 search = arxiv.Search(id_list=[paper_id])
 paper = next(search.results())
 print(paper.title)
 
-
-# Download the PDF to a specified directory with a custom filename.
-paper.download_pdf(dirpath="data/", filename=f"{paper.title}.pdf")
+paper.download_pdf(filename=f"data/{paper.title}.pdf")
