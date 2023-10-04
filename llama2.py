@@ -61,7 +61,7 @@ chain = RetrievalQA.from_chain_type(llm=llm,
 
 
 # input query here
-query = "What are the components of HOUYI?"
+query = "Why is misinformation bad?"
 
 
 # response elements
@@ -74,4 +74,5 @@ print(f"""
 query: {query}\n
 result: {result}\n
 source documents: {source_documents}
+num_soures = :{len(source_documents)}
 """)
