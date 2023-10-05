@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_chat import message_stream
 from langchain.llms import CTransformers
 from langchain import PromptTemplate
 from langchain.chains import RetrievalQA
@@ -8,6 +7,7 @@ from langchain.vectorstores import FAISS
 from langchain.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
+@st.cache_resource
 def load_llm():
     llm = CTransformers(model="models\llama-2-7b-chat.ggmlv3.q2_K.bin",
                     model_type='llama',
@@ -15,6 +15,7 @@ def load_llm():
                             'temperature':0})
     return llm
 
+@st.cache_resource
 def create_vector_store(folder_path:str):
     # load the pdf files from the data folder
     loader = DirectoryLoader('{folder_path}/',
@@ -41,6 +42,7 @@ def create_vector_store(folder_path:str):
 
     return vector_store
 
+@st.cache_resource
 def create_qa_prompt():
     
     template = """Use the provided information to answer the user's query. 
@@ -62,16 +64,31 @@ def generate_response(llm, vector_store, qa_prompt, query):
                                         return_source_documents=True,
                                         chain_type_kwargs={'prompt':qa_prompt})
 
-
-    # input query here
-    query = "Why is misinformation bad?"
-
-
     # response elements
     response = chain({'query': query})
     result = response['result']
     source_documents = response['source_documents']
     return response
 
+def main():
 
-st.title('Say Hello To Our Llama2-Powered Chatbot! Trained with Social Media Research!')
+    st.title('Say Hello To Our Llama2-Powered Chatbot! Trained with Social Media Research!')
+
+
+    llm=load_llm()
+    vector_store = create_vector_store()
+    qa_prompt = create_qa_prompt()
+
+
+    query = st.text_input('User Query', 'Enter Your Query Here')
+    if st.button('Submit question'):
+        response = generate_response(llm=llm,
+                                     vector_store=vector_store,
+                                     qa_prompt=qa_prompt,
+                                     query=query)
+        
+        st.write(f'Response: {response["result"]}')
+        st.write(f'Source: {response["source_documents"]}')
+
+if __name__ == "__main__":
+    main()
