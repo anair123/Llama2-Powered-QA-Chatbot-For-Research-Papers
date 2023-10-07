@@ -6,29 +6,34 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from langchain.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from PyPDF2 import PdfReader
+from glob import glob
+import pickle
 
-@st.cache_resource
+@st.cache_resource()
 def load_llm():
     llm = CTransformers(model="models\llama-2-7b-chat.ggmlv3.q2_K.bin",
                     model_type='llama',
-                    config={'max_new_tokens':128,
-                            'temperature':0})
+                    config={'temperature':0})
     return llm
 
-@st.cache_resource
+@st.cache_resource()
 def create_vector_store(folder_path:str):
     # load the pdf files from the data folder
-    loader = DirectoryLoader('{folder_path}/',
-                            glob='*.pdf',
-                            loader_cls=PyPDFLoader)
 
-    documents = loader.load()
+    pdf_files = glob(f'{folder_path}/*.pdf')
+    text = ""
+
+    for pdf_file in pdf_files:
+        pdf_reader = PdfReader(pdf_file)
+        for page in pdf_reader.pages:
+            text += page.extract_text()
 
     # split the text into chunks
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000,
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000,
                                                 chunk_overlap=100)
 
-    text_chunks = text_splitter.split_documents(documents)
+    text_chunks = text_splitter.split_text(text)
 
     print(len(text_chunks))
 
@@ -42,11 +47,11 @@ def create_vector_store(folder_path:str):
 
     return vector_store
 
-@st.cache_resource
+@st.cache_data()
 def create_qa_prompt():
     
     template = """Use the provided information to answer the user's query. 
-                    The reesponse should be have 5 or less sentences. 
+                    The reesponse should be have at most 2 sentences. 
 
     Context: {context}
     Question: {question}
@@ -75,8 +80,7 @@ def main():
     st.title('Say Hello To Our Llama2-Powered Chatbot! Trained with Social Media Research!')
 
 
-    llm=load_llm()
-    vector_store = create_vector_store()
+    vector_store = create_vector_store(folder_path='data')
     qa_prompt = create_qa_prompt()
 
 
@@ -88,7 +92,17 @@ def main():
                                      query=query)
         
         st.write(f'Response: {response["result"]}')
-        st.write(f'Source: {response["source_documents"]}')
+        #st.write(f'Source: {response["source_documents"]}')
 
 if __name__ == "__main__":
+
+    llm=load_llm()
+    vector_store = create_vector_store(folder_path='data')
+    qa_prompt = create_qa_prompt()
+
+    query = "How does social media affect fear speech?"
+    response = generate_response(llm, vector_store, qa_prompt, query)
+
+    print(response)
+    
     main()
