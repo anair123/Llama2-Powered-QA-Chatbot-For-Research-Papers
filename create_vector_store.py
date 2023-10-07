@@ -1,10 +1,10 @@
-from langchain.document_loaders import DirectoryLoader, TextLoader
+from langchain.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 
 # define what documents to load
-loader = DirectoryLoader(path='data', glob="*.txt", loader_cls=TextLoader)
+loader = DirectoryLoader(path='data', glob="*.pdf", loader_cls=PyPDFLoader)
 
 # interpret information in the documents
 documents = loader.load()
