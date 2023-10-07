@@ -36,8 +36,13 @@ qa_llm = RetrievalQA.from_chain_type(llm=llm,
                                      chain_type_kwargs={'prompt': prompt})
 
 # ask the AI chat about information in our local files
-prompt = "Give me examples of sports that incorporate computer vision"
+prompt = "What algorithms are used to track players?"
 
-# What is the benefit of computer vision in sports analysis?
+# 
 output = qa_llm({'query': prompt})
 print(output["result"])
+
+"""sample questions: 
+1. What is the benefit of computer vision in sports analysis?
+2. Give me examples of sports that incorporate computer vision
+"""
