@@ -14,7 +14,7 @@ Answer:
 """
 
 # load the language model
-llm = CTransformers(model='models/llama-2-7b-chat.ggmlv3.q4_1.bin',
+llm = CTransformers(model='models/llama-2-7b-chat.ggmlv3.q2_K.bin', # model available here: https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/tree/main
                     model_type='llama',
                     config={'max_new_tokens': 256, 'temperature': 0})
 
