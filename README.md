@@ -11,7 +11,7 @@ The resulting application will be evaluated based on it's ability as a tool of c
 1. Clone this repository using the command:  
 ```git clone https://github.com/anair123/Llama2-Powered-QA-Chatbot-For-Research-Papers.git```
 
-2. Download a quantized Llama2 model (pick any one) from the following link:   https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/tree/main
+2. Download a quantized Llama2 model (pick any one) from the following link:     https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/tree/main
 
 3. Store the model in the "models" directory
 
