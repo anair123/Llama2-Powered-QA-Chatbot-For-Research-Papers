@@ -68,7 +68,7 @@ if __name__ == "__main__":
     # test the code with a sample question
     query = "What algorithms are used to track players?"
     qa_chain = create_qa_chain()
-    response = qa_chain({'query': query})
+    response = generate_response(query=query, qa_chain=qa_chain)
     print(response)
 
 """sample questions: 
