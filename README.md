@@ -1,4 +1,5 @@
 # Training a Llama2-Powered Chatbot to Interact with Research Papers
+![Chatbot Diagram](https://github.com/anair123/Llama2-Powered-QA-Chatbot-For-Research-Papers/assets/47230033/5ea10939-b3a3-48c7-819e-9af6db879dbc)
 
 
 ## Introduction
@@ -28,8 +29,8 @@ The resulting application will be evaluated based on it's ability as a tool of c
 
 
 ## Author
-Aashish Nair
-LinkedIn: www.linkedin.com/in/aashish-nair
+Aashish Nair  
+LinkedIn: www.linkedin.com/in/aashish-nair  
 Medium: https://medium.com/@aashishnair
 
 
