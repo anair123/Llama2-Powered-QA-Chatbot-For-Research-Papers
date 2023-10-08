@@ -11,10 +11,13 @@ documents = loader.load()
 splitter = RecursiveCharacterTextSplitter(chunk_size=500,
                                           chunk_overlap=50)
 texts = splitter.split_documents(documents)
+
 embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2",
     model_kwargs={'device': 'cpu'})
 
-# create and save the local database
+# create the vector store database
 db = FAISS.from_documents(texts, embeddings)
+
+# save the vector store
 db.save_local("faiss")

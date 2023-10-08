@@ -4,14 +4,7 @@ from langchain.vectorstores import FAISS
 from langchain import PromptTemplate
 from langchain.chains import RetrievalQA
 
-# prepare the template we will use when prompting the AI
-template = """Use the provided context to answer the user's question.
-If you don't know the answer, respond with "I do not know".
 
-Context: {context}
-Question: {question}
-Answer:
-"""
 
 # load the language model
 llm = CTransformers(model='models/llama-2-7b-chat.ggmlv3.q2_K.bin', # model available here: https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/tree/main
@@ -23,6 +16,16 @@ embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2",
     model_kwargs={'device': 'cpu'})
 db = FAISS.load_local("faiss", embeddings)
+
+
+# prepare the template we will use when prompting the AI
+template = """Use the provided context to answer the user's question.
+If you don't know the answer, respond with "I do not know".
+
+Context: {context}
+Question: {question}
+Answer:
+"""
 
 # prepare a version of the llm pre-loaded with the local content
 retriever = db.as_retriever(search_kwargs={'k': 2})
