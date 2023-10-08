@@ -59,7 +59,7 @@ def create_qa_chain():
     db = load_vector_store()
     prompt = load_prompt_template()
 
-    # prepare a version of the llm pre-loaded with the local content
+    # create the qa_chain
     retriever = db.as_retriever(search_kwargs={'k': 2})
     qa_chain = RetrievalQA.from_chain_type(llm=llm,
                                         chain_type='stuff',
@@ -71,7 +71,8 @@ def create_qa_chain():
 
 def generate_response(query, qa_chain):
 
-    return qa_chain({'query':query})
+    # use the qa_chain to answer the given query
+    return qa_chain({'query':query})['result']
 
 
 def get_user_input():
@@ -91,7 +92,7 @@ user_input = get_user_input()
 
 if user_input:
 
-    response = generate_response(query=user_input, qa_chain=qa_chain)['result']
+    response = generate_response(query=user_input, qa_chain=qa_chain)
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(response)
