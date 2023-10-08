@@ -28,7 +28,7 @@ The resulting application will be evaluated based on it's ability as a tool of c
 
 
 ## Author
-Aashish Nair
+Aashish Nair  
 LinkedIn: www.linkedin.com/in/aashish-nair  
 Medium: https://medium.com/@aashishnair
 
