@@ -8,22 +8,21 @@ The resulting application will be evaluated based on it's ability as a tool of c
 
 ## Installation Instructions
 
-1. Clone this repository using the command: 
+1. Clone this repository using the command:  
 ```git clone https://github.com/anair123/Llama2-Powered-QA-Chatbot-For-Research-Papers.git```
 
-2. Download a quantized Llama2 model (pick any one) from the following link: https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/tree/main
+2. Download a quantized Llama2 model (pick any one) from the following link:   https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/tree/main
 
 3. Store the model in the "models" directory
 
-4. Create a virtual environment and enter it
-```python -m venv <name_of_venv>```
-
+4. Create a virtual environment and enter it  
+```python -m venv <name_of_venv>```  
 ```venv/Scripts/Activate```
 
-5. Install the dependencies with the command:
+5. Install the dependencies with the command:  
 ```pip install -r requirements.txt```
 
-6. Run the Streamlit web app with the command:
+6. Run the Streamlit web app with the command:  
 ```streamlit run app.py```
 
 
