@@ -23,7 +23,9 @@ The resulting application will be evaluated based on it's ability as a tool of c
 5. Install the dependencies with the command:  
 ```pip install -r requirements.txt```
 
-6. Run the Streamlit web app with the command:  
+6. Add all the pdf documents you want to interact with in the "data" folder.
+
+7. Run the Streamlit web app with the command:  
 ```streamlit run app.py```
 
 
